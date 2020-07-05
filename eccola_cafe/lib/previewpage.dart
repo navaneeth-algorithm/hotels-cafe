@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:http/http.dart' as http;
-
+import 'customdialog.dart';
 import 'paymentpage.dart';
 
 class PreviewPageContainer extends StatefulWidget {
@@ -34,6 +34,51 @@ var total = 0.0;
 var deliverycharge = 0;
 
 class _PreviewPageContainerState extends State<PreviewPageContainer> {
+  completePayment() async {
+    Map data = {
+      "order_id": this.widget.orderid,
+      "premise_id": this.widget.otpdata["premise_id"],
+      //x  "phone_session_id": this.widget.otpdata["phone_session_id"]
+    };
+    print(data);
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      "http://18.130.82.119:3013/api/v1/takeway/complete_order",
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+    print(response.body);
+    var dataUser = json.decode(response.body);
+    Map mapData = dataUser;
+    // ackAlert(context, "Payment", "Successful");
+
+    /* Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => HomePage()),
+                    (route) => false);*/
+
+    // print("Respose  got for validate_otp");
+    print("Payment complete?");
+    if (mapData["message"] != null) {
+      showDialogSuccess(title: "SUCCESS", msg: mapData["message"]);
+    }
+    //[name, order_type, delivery_charge, order_history_list, active_order_list, current_order, menu_items, status]
+    print(response.body);
+  }
+
+  void showDialogSuccess({title = '', msg = ''}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CustomDialog(
+        title: title,
+        description: "" + msg,
+        buttonText: "Okay",
+      ),
+    );
+  }
+
   submitOrder() async {
     Map data = {
       "order_id": this.widget.orderid,
@@ -47,7 +92,7 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/confirm_order",
+        "http://18.130.82.119:3013/api/v1/takeway/confirm_order",
         headers: {"Content-Type": "application/json"},
         body: body);
 
@@ -83,7 +128,7 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.get(
-      "https://test.eccolacafedelivery.com/api/v1/takeway/preview?order_id=" +
+      "http://18.130.82.119:3013/api/v1/takeway/preview?order_id=" +
           this.widget.orderid.toString() +
           "&&premise_id=" +
           this.widget.otpdata["premise_id"] +
@@ -93,6 +138,14 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
     );
 
     var dataUser = json.decode(response.body);
+
+    bool showpage = dataUser["current_order"]["show_payment_page"];
+
+    if (!showpage) {
+      setState(() {
+        paymentbutton = "Complete Payment";
+      });
+    }
 
     return dataUser;
 
@@ -112,14 +165,17 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
   TextEditingController _address2 = new TextEditingController();
   TextEditingController _name = new TextEditingController();
   TextEditingController _postalcode = new TextEditingController();
-
+  String paymentbutton;
+  Future getpreviewdata;
   @override
   void initState() {
     // TODO: implement initState
-    getPreviewData();
+    getpreviewdata = getPreviewData();
+
+    paymentbutton = "Choose Payment Type";
 
     var urlwebapp =
-        "https://test.eccolacafedelivery.com/en/takeway/enter?utf8=%E2%9C%93&premise_id=114921&phone_session_id=" +
+        "http://18.130.82.119:3013/en/takeway/enter?utf8=%E2%9C%93&premise_id=114921&phone_session_id=" +
             this.widget.otpdata["phone_session_id"] +
             "&&o1=" +
             this.widget.otpdata["o1"] +
@@ -158,7 +214,7 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
               child: Form(
                 key: _formKey,
                 child: FutureBuilder(
-                  future: getPreviewData(),
+                  future: getpreviewdata,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
                       return Center(
@@ -479,11 +535,12 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
                     } else {
                       //Dont show payment page
                       //Success Page
+                      completePayment();
                     }
                   }
                 },
                 child: Text(
-                  "Choose Payment Type",
+                  "" + paymentbutton,
                   style: TextStyle(color: buttontextcolor, fontSize: 18),
                 ),
               ),

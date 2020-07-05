@@ -45,7 +45,7 @@ class _PhoneNumberContainerState extends State<PhoneNumberContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.get(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/get_otp?premise_id=" +
+        "http://18.130.82.119:3013/api/v1/takeway/get_otp?premise_id=" +
             premise_id.toString(),
         headers: {"Content-Type": "application/json"});
 
@@ -121,29 +121,35 @@ class _PhoneNumberContainerState extends State<PhoneNumberContainer> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                          height: height - 450,
-                          width: width - 50,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      "" + snapshot.data["image_url"])),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50))),
-                          child: Text("")),
+                      snapshot.data["image_url"] != null
+                          ? Container(
+                              height: height - 450,
+                              width: width - 50,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          "" + snapshot.data["image_url"])),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50))),
+                              child: Text(""))
+                          : Container(),
                       SizedBox(
                         height: 50,
                       ),
-                      Html(
-                        data: snapshot.data["top_content"].toString(),
-                        style: {
-                          "p": Style(
-                              textAlign: TextAlign.center, color: textcolor),
-                          "h6": Style(
-                              textAlign: TextAlign.center, color: textcolor),
-                        },
-                      ),
+                      snapshot.data["top_content"] != null
+                          ? Html(
+                              data: snapshot.data["top_content"].toString(),
+                              style: {
+                                "p": Style(
+                                    textAlign: TextAlign.center,
+                                    color: textcolor),
+                                "h6": Style(
+                                    textAlign: TextAlign.center,
+                                    color: textcolor),
+                              },
+                            )
+                          : Container(),
                       SizedBox(
                         height: 20,
                       ),
@@ -254,17 +260,19 @@ class _PhoneNumberContainerState extends State<PhoneNumberContainer> {
                       SizedBox(
                         height: 10,
                       ),
-                      Html(
-                        data: snapshot.data["bottom_content"].toString(),
-                        style: {
-                          "p": Style(
-                              textAlign: TextAlign.center,
-                              color: Colors.grey.shade300),
-                          "h6": Style(
-                              textAlign: TextAlign.center,
-                              color: Colors.grey.shade300),
-                        },
-                      ),
+                      snapshot.data["bottom_content"] != null
+                          ? Html(
+                              data: snapshot.data["bottom_content"].toString(),
+                              style: {
+                                "p": Style(
+                                    textAlign: TextAlign.center,
+                                    color: textcolor),
+                                "h6": Style(
+                                    textAlign: TextAlign.center,
+                                    color: textcolor),
+                              },
+                            )
+                          : Container(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[

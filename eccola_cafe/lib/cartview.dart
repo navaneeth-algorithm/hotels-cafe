@@ -81,7 +81,7 @@ class _CartViewPageContainerState extends State<CartViewPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/validate_otp",
+        "http://18.130.82.119:3013/api/v1/takeway/validate_otp",
         headers: {"Content-Type": "application/json"},
         body: body);
 
@@ -146,7 +146,7 @@ class _CartViewPageContainerState extends State<CartViewPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/validate_otp",
+        "http://18.130.82.119:3013/api/v1/takeway/validate_otp",
         headers: {"Content-Type": "application/json"},
         body: body);
 
@@ -204,7 +204,7 @@ class _CartViewPageContainerState extends State<CartViewPageContainer> {
     // print(data);
 
     http.Response response = await http.delete(
-      "https://test.eccolacafedelivery.com/api/v1/takeway/remove_item?premise_id=" +
+      "http://18.130.82.119:3013/api/v1/takeway/remove_item?premise_id=" +
           this.widget.otpdata["premise_id"].toString() +
           "&&item_id=" +
           itemid.toString() +
@@ -252,18 +252,17 @@ class _CartViewPageContainerState extends State<CartViewPageContainer> {
 
     var body = json.encode(data);
 
-    print(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/menu_items?premise_id=" +
-            this.widget.otpdata["premise_id"] +
-            "&&phone_session_id=" +
-            this.widget.otpdata["phone_session_id"] +
-            "&&menu_category_id=" +
-            menuid.toString() +
-            "&&order_id=" +
-            this.widget.orderdata["current_order"]["id"].toString());
+    print("http://18.130.82.119:3013/api/v1/takeway/menu_items?premise_id=" +
+        this.widget.otpdata["premise_id"] +
+        "&&phone_session_id=" +
+        this.widget.otpdata["phone_session_id"] +
+        "&&menu_category_id=" +
+        menuid.toString() +
+        "&&order_id=" +
+        this.widget.orderdata["current_order"]["id"].toString());
 
     http.Response response = await http.get(
-      "https://test.eccolacafedelivery.com/api/v1/takeway/menu_items?premise_id=" +
+      "http://18.130.82.119:3013/api/v1/takeway/menu_items?premise_id=" +
           this.widget.otpdata["premise_id"] +
           "&&phone_session_id=" +
           this.widget.otpdata["phone_session_id"] +
@@ -359,7 +358,7 @@ class _CartViewPageContainerState extends State<CartViewPageContainer> {
     });
 
     var urlwebapp =
-        "https://test.eccolacafedelivery.com/en/takeway/enter?utf8=%E2%9C%93&premise_id=114921&phone_session_id=" +
+        "http://18.130.82.119:3013/en/takeway/enter?utf8=%E2%9C%93&premise_id=114921&phone_session_id=" +
             this.widget.otpdata["phone_session_id"] +
             "&&o1=" +
             this.widget.otpdata["o1"] +

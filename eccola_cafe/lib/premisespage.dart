@@ -28,10 +28,10 @@ class _PremisesPageState extends State<PremisesPage> {
   Future _getpremises() async {
     try {
       http.Response response = await http.get(
-          "https://test.eccolacafedelivery.com/api/v1/takeway/get_premises",
+          "http://18.130.82.119:3013/api/v1/takeway/get_premises",
           headers: {"Content-Type": "application/json"});
 
-      print("https://test.eccolacafedelivery.com/api/v1/takeway/get_premises");
+      print("http://18.130.82.119:3013/api/v1/takeway/get_premises");
 
       print(response.body);
 

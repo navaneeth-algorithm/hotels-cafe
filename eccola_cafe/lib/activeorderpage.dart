@@ -73,7 +73,7 @@ class _ActiveOrderPageContainerState extends State<ActiveOrderPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/validate_otp",
+        "http://18.130.82.119:3013/api/v1/takeway/validate_otp",
         headers: {"Content-Type": "application/json"},
         body: body);
 

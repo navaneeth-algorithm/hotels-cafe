@@ -87,7 +87,7 @@ class _PaymentPageContainerState extends State<PaymentPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.delete(
-      "https://test.eccolacafedelivery.com/api/v1/takeway/remove_card?phone_session=" +
+      "http://18.130.82.119:3013/api/v1/takeway/remove_card?phone_session=" +
           this.widget.otpdata["phone_session_id"] +
           "&&premise_id=" +
           this.widget.otpdata["premise_id"] +
@@ -209,7 +209,7 @@ class _PaymentPageContainerState extends State<PaymentPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-      "https://test.eccolacafedelivery.com/api/v1/takeway/complete_order",
+      "http://18.130.82.119:3013/api/v1/takeway/complete_order",
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -305,7 +305,7 @@ class _PaymentPageContainerState extends State<PaymentPageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/pay_amount",
+        "http://18.130.82.119:3013/api/v1/takeway/pay_amount",
         headers: {"Content-Type": "application/json"},
         body: body);
 

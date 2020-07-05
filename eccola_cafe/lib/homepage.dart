@@ -6,6 +6,7 @@ import 'ondelivery.dart';
 import 'phonenumberpage.dart';
 import 'package:http/http.dart' as http;
 import 'orderpage.dart';
+import 'premisespage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,6 +19,21 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
         top: false,
         child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+                icon: Icon(Icons.exit_to_app),
+                tooltip: "Select Premise Page",
+                onPressed: () {
+                  //Navigator.pop(context);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => PremisesPage()),
+                      (route) => false);
+                }),
+            title: Text(""),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
           backgroundColor: backgroundcolor, //Color(0xff304059),
           body: HomePageContainer(),
         ));
@@ -77,13 +93,13 @@ class _HomePageContainerState extends State<HomePageContainer> {
       var body = json.encode(data);
 
       http.Response response = await http.get(
-          "https://test.eccolacafedelivery.com/api/v1/takeway?premise_id=" +
+          "http://18.130.82.119:3013/api/v1/takeway?premise_id=" +
               premise_id.toString() +
               "&&session_id=" +
               sessionid,
           headers: {"Content-Type": "application/json"});
 
-      print("https://test.eccolacafedelivery.com/api/v1/takeway?premise_id=" +
+      print("http://18.130.82.119:3013/api/v1/takeway?premise_id=" +
           premise_id.toString() +
           "&&session_id=" +
           sessionid);
@@ -143,7 +159,7 @@ class _HomePageContainerState extends State<HomePageContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/validate_otp",
+        "http://18.130.82.119:3013/api/v1/takeway/validate_otp",
         headers: {"Content-Type": "application/json"},
         body: body);
     //await Navigator.pop(context);
@@ -265,17 +281,19 @@ class _HomePageContainerState extends State<HomePageContainer> {
                         SizedBox(
                           height: 30,
                         ),
-                        Container(
-                            height: height - 450,
-                            width: width - 50,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        "" + homePageData.imageurl)),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50))),
-                            child: Text("")),
+                        homePageData.imageurl != null
+                            ? Container(
+                                height: height - 450,
+                                width: width - 50,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            "" + homePageData.imageurl)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50))),
+                                child: Text(""))
+                            : Container(),
                         SizedBox(
                           height: 50,
                         ),

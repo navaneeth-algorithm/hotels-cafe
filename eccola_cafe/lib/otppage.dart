@@ -84,7 +84,7 @@ class _OtpContainerState extends State<OtpContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/send_otp",
+        "http://18.130.82.119:3013/api/v1/takeway/send_otp",
         headers: {"Content-Type": "application/json"},
         body: body);
 
@@ -157,7 +157,7 @@ class _OtpContainerState extends State<OtpContainer> {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-        "https://test.eccolacafedelivery.com/api/v1/takeway/validate_otp",
+        "http://18.130.82.119:3013/api/v1/takeway/validate_otp",
         headers: {"Content-Type": "application/json"},
         body: body);
     //await Navigator.pop(context);
@@ -212,15 +212,17 @@ class _OtpContainerState extends State<OtpContainer> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                  height: height - 450,
-                  width: width - 50,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage("" + this.widget.imageurl)),
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: Text("")),
+              this.widget.imageurl != null
+                  ? Container(
+                      height: height - 450,
+                      width: width - 50,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage("" + this.widget.imageurl)),
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      child: Text(""))
+                  : Container(),
               SizedBox(
                 height: 50,
               ),
