@@ -1,2 +1,2 @@
 # Order Ahead
-> App that is developed using Flutter & rub on rails
+> App that is developed using Flutter & Ruby on rails
