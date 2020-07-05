@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'constants.dart';
 import 'activeorderpage.dart';
-import 'main.dart';
+import 'homepage.dart';
 import 'currentorderpage.dart';
 import 'pastorderpage.dart';
 
@@ -39,49 +39,51 @@ class _OrderPageState extends State<OrderPage>
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: Colors.black),
         home: SafeArea(
+            top: false,
             child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          appBar: AppBar(
-            leading: IconButton(
-                icon: Icon(Icons.exit_to_app),
-                tooltip: "Home",
-                onPressed: () {
-                  //Navigator.pop(context);
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => HomePage()),
-                      (route) => false);
-                }),
-            title: Text(""),
-            centerTitle: true,
-          ),
-          bottomNavigationBar: TabBar(
-            labelColor: tablabelcolor,
-            unselectedLabelColor: tabunselectedlabelcolor,
-            isScrollable: true,
-            tabs: [
-              new Tab(
-                text: "Current Orders",
-                icon: new Icon(Icons.event),
+              resizeToAvoidBottomInset: true,
+              primary: false,
+              appBar: AppBar(
+                leading: IconButton(
+                    icon: Icon(Icons.exit_to_app),
+                    tooltip: "Home",
+                    onPressed: () {
+                      //Navigator.pop(context);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => HomePage()),
+                          (route) => false);
+                    }),
+                title: Text(""),
+                centerTitle: true,
               ),
-              new Tab(
-                iconMargin: EdgeInsets.all(1),
-                text: "Active Orders",
-                icon: new Icon(Icons.event),
+              bottomNavigationBar: TabBar(
+                labelColor: tablabelcolor,
+                unselectedLabelColor: tabunselectedlabelcolor,
+                isScrollable: true,
+                tabs: [
+                  new Tab(
+                    text: "Current Orders",
+                    icon: new Icon(Icons.event),
+                  ),
+                  new Tab(
+                    iconMargin: EdgeInsets.all(1),
+                    text: "Active Orders",
+                    icon: new Icon(Icons.event),
+                  ),
+                  new Tab(
+                    text: "Past Order",
+                    icon: new Icon(Icons.history),
+                  ),
+                ],
+                controller: _tabController,
               ),
-              new Tab(
-                text: "Past Order",
-                icon: new Icon(Icons.history),
+              body: OrderContainer(
+                tabController: _tabController,
+                otpdata: this.widget.otpdata,
+                orderpagedata: this.widget.orderpagedata,
               ),
-            ],
-            controller: _tabController,
-          ),
-          body: OrderContainer(
-            tabController: _tabController,
-            otpdata: this.widget.otpdata,
-            orderpagedata: this.widget.orderpagedata,
-          ),
-        )),
+            )),
       ),
     );
   }

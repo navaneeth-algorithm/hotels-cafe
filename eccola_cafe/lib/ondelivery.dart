@@ -15,18 +15,19 @@ class OnDeliveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+        top: false,
         child: Scaffold(
-      /* appBar: AppBar(
+          /* appBar: AppBar(
         title: Text(""),
         backgroundColor: Color(0xff8B80E6),
         centerTitle: true,
       ),*/
-      backgroundColor: backgroundcolor,
-      body: OnDeliveryContainer(
-        companyName: this.companyName,
-        validsession: validsession,
-      ),
-    ));
+          backgroundColor: backgroundcolor,
+          body: OnDeliveryContainer(
+            companyName: this.companyName,
+            validsession: validsession,
+          ),
+        ));
   }
 }
 

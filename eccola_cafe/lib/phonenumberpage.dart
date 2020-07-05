@@ -16,10 +16,11 @@ class PhoneNumberPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+        top: false,
         child: Scaffold(
-      backgroundColor: backgroundcolor,
-      body: PhoneNumberContainer(postalcode: this.postalcode),
-    ));
+          backgroundColor: backgroundcolor,
+          body: PhoneNumberContainer(postalcode: this.postalcode),
+        ));
   }
 }
 

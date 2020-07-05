@@ -8,7 +8,7 @@ import 'orderpage.dart';
 import 'previewpage.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'subitemspage.dart';
-import 'main.dart';
+import 'homepage.dart';
 import 'package:http/http.dart' as http;
 
 class CartViewPageContainer extends StatefulWidget {
@@ -420,6 +420,7 @@ class _CartViewPageContainerState extends State<CartViewPageContainer> {
                       (route) => false);
                 })),
         body: SafeArea(
+          top: false,
           child: Form(
             key: _formKey,
             child: Container(

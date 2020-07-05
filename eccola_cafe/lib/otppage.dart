@@ -21,13 +21,14 @@ class OtpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+        top: false,
         child: Scaffold(
-      backgroundColor: backgroundcolor,
-      body: OtpContainer(
-          phonenumber: this.phonenumber,
-          postalcode: this.postalcode,
-          imageurl: this.imageurl),
-    ));
+          backgroundColor: backgroundcolor,
+          body: OtpContainer(
+              phonenumber: this.phonenumber,
+              postalcode: this.postalcode,
+              imageurl: this.imageurl),
+        ));
   }
 }
 

@@ -226,12 +226,6 @@ class _PaymentPageContainerState extends State<PaymentPageContainer> {
     // print("Respose  got for validate_otp");
     print("Payment complete?");
     if (mapData["message"] != null) {
-      /* Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (BuildContext context) => SuccessPageContainer(
-                    msg: mapData["message"],
-                  )),
-          (route) => false);*/
       showDialogSuccess(title: "SUCCESS", msg: mapData["message"]);
     }
     //[name, order_type, delivery_charge, order_history_list, active_order_list, current_order, menu_items, status]
@@ -321,12 +315,6 @@ class _PaymentPageContainerState extends State<PaymentPageContainer> {
       Map mapData = dataUser;
 
       if (mapData["message"] != null) {
-        /* Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (BuildContext context) => SuccessPageContainer(
-                      msg: mapData["message"],
-                    )),
-            (route) => false);*/
         showDialogSuccess(title: "SUCCESS", msg: mapData["message"]);
       }
     } catch (err) {
@@ -363,6 +351,7 @@ class _PaymentPageContainerState extends State<PaymentPageContainer> {
           ),
           backgroundColor: Colors.black),
       body: SafeArea(
+        top: false,
         child: Form(
           key: _formKey,
           child: Container(

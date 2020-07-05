@@ -141,6 +141,7 @@ class _PreviewPageContainerState extends State<PreviewPageContainer> {
     double height = MediaQuery.of(context).size.height;
     final _formKey = GlobalKey<FormState>();
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,

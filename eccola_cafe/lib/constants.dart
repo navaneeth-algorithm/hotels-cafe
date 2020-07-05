@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const String premise_id = "114921";
+String premise_id;
 const String phone_session_id = "5";
 
 const backgroundcolor = Colors.white;

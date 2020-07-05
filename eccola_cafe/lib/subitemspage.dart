@@ -568,6 +568,7 @@ class _SubItemsPageContainerState extends State<SubItemsPageContainer> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
+      top: false,
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: backgroundcolor,

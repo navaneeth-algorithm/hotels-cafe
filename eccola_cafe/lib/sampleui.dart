@@ -11,12 +11,13 @@ class _SampleExtensionState extends State<SampleExtension> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
+        top: false,
         child: Scaffold(
             body: Container(
-      height: height,
-      child: ListView(
-        children: [],
-      ),
-    )));
+          height: height,
+          child: ListView(
+            children: [],
+          ),
+        )));
   }
 }
